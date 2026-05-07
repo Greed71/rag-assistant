@@ -5,14 +5,14 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![OpenAI](https://img.shields.io/badge/OpenAI-API-green)
 
-**RAG Assistant** è un framework standalone per costruire assistenti IA basati su **Retrieval-Augmented Generation**. Combina:
+**RAG Assistant** is a standalone framework for building AI assistants based on **Retrieval-Augmented Generation**. It combines:
 
-- 🔗 **Vector Store Integration** — supporto nativo per OpenAI Vector Stores
-- 🧠 **LLM Pluggable** — Supporto per OpenAI e Ollama locale
-- 🔄 **Streaming SSE** — Risposte in tempo reale tramite Server-Sent Events
-- 🎯 **Fully Configurable** — Gestione completa di prompt e parametri via `.env`
+- 🔗 **Vector Store Integration** — native support for OpenAI Vector Stores
+- 🧠 **Pluggable LLM** — Support for OpenAI and local Ollama
+- 🔄 **SSE Streaming** — Real-time responses via Server-Sent Events
+- 🎯 **Fully Configurable** — Complete management of prompts and parameters via `.env`
 
-## Cosa Puoi Fare
+## What You Can Do
 
 ```
 ┌─────────────────────────────┐
@@ -27,26 +27,26 @@
    │  + Custom Prompts   │
    └────────────┬────────┘
              ↓
-    ┌─────────────────┐
-    │  Your App UI    │
-    │  (Next.js, SPA, │
-    │   mobile, ...)  │
-    └─────────────────┘
+     ┌─────────────────┐
+     │  Your App UI    │
+     │  (Next.js, SPA, │
+     │   mobile, ...)  │
+     └─────────────────┘
 ```
 
-### Casi d'Uso
+### Use Cases
 
-- **TTRPG Assistants** (D&D, Pathfinder, Fate, ecc.) — integra regole + lore
-- **Documentation Assistants** — rispondi a domande su API, prodotti, manuali
-- **Customer Support** — RAG su KB aziendale + FAQ
-- **Learning Assistants** — RAG su curriculum + corsi
-- **Game Masters' Copilot** — contesto di campagna + gestione PNG/mostri
+- **TTRPG Assistants** (D&D, Pathfinder, Fate, etc.) — integrate rules + lore
+- **Documentation Assistants** — answer questions about APIs, products, manuals
+- **Customer Support** — RAG on company KB + FAQ
+- **Learning Assistants** — RAG on curriculum + courses
+- **Game Masters' Copilot** — campaign context + NPC/monster management
 
 ---
 
 ## Quick Start
 
-### 1. Clona e Installa
+### 1. Clone and Install
 
 ```bash
 git clone https://github.com/Grimlight-Software/rag-assistant.git
@@ -54,47 +54,47 @@ cd rag-assistant
 npm install
 ```
 
-### 2. Configura `.env.local`
+### 2. Configure `.env.local`
 
 ```env
 # OpenAI (Default)
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o-mini
-OPENAI_VECTOR_STORE_ID=vs_...      # Opzionale: ID per RAG
+OPENAI_VECTOR_STORE_ID=vs_...      # Optional: ID for RAG
 
-# Opzionale: Ollama locale
+# Optional: Local Ollama
 # OLLAMA_BASE_URL=http://localhost:11434
 
 # Assistant Config
-NEXT_PUBLIC_SYSTEM_PROMPT="Tu sei un assistente utile..."
+NEXT_PUBLIC_SYSTEM_PROMPT="You are a helpful assistant..."
 MAX_HISTORY_MESSAGES=10
 LLM_TEMPERATURE=0.6
 ```
 
-### 3. Avvia lo Sviluppo
+### 3. Start Development
 
 ```bash
 npm run dev
 ```
 
-Apri `http://localhost:3000` nel browser.
+Open `http://localhost:3000` in your browser.
 
 ---
 
-## Stack Tecnologico
+## Technology Stack
 
-| Layer | Tecnologia | Note |
+| Layer | Technology | Notes |
 |---|---|---|
 | **Frontend** | Next.js 15 + React 19 + TypeScript | App Router & Server Actions |
-| **Backend API** | Next.js Route Handlers | Streaming SSE |
-| **LLM** | OpenAI SDK | Compatibile con Ollama |
+| **Backend API** | Next.js Route Handlers | SSE Streaming |
+| **LLM** | OpenAI SDK | Ollama compatible |
 | **Styling** | CSS Modules | Zero runtime dependencies |
 
 ---
 
-## Architettura
+## Architecture
 
-### Flusso Richiesta
+### Request Flow
 
 ```
 Client (UI)
@@ -113,7 +113,7 @@ Client (UI)
        └─ Render Markdown (react-markdown)
 ```
 
-### Albero Progetto
+### Project Tree
 
 ```
 rag-assistant/
@@ -126,7 +126,7 @@ rag-assistant/
 ├── src/
 │   ├── app/
 │   │   ├── api/
-│   │   │   ├── chat/route.ts              # Endpoint principale (SSE)
+│   │   │   ├── chat/route.ts              # Main endpoint (SSE)
 │   │   │   ├── health/route.ts            # Liveness probe
 │   │   │   └── config/route.ts            # Debug config (Dev only)
 │   │   │
@@ -135,44 +135,44 @@ rag-assistant/
 │   │   └── globals.css
 │   │
 │   ├── components/
-│   │   ├── ChatbotAssistant.tsx           # Widget chat
+│   │   ├── ChatbotAssistant.tsx           # Chat widget
 │   │   ├── ChatbotAssistant.module.css
-│   │   └── svg/                           # Icone UI
+│   │   └── svg/                           # UI Icons
 │   │
 │   ├── lib/
-│   │   ├── llm.ts                         # Client OpenAI/Ollama
-│   │   ├── rate-limit.ts                  # Limiter IP-based
-│   │   └── config.ts                      # Loader variabili d'ambiente
+│   │   ├── llm.ts                         # OpenAI/Ollama client
+│   │   ├── rate-limit.ts                  # IP-based limiter
+│   │   └── config.ts                      # Environment variable loader
 │   │
 │   ├── types/
-│   │   └── index.ts                       # Interfacce TypeScript
+│   │   └── index.ts                       # TypeScript interfaces
 │   │
-│   └── utils/                             # Utility interne
+│   └── utils/                             # Internal utilities
 │
-└── public/                                # Asset statici
+└── public/                                # Static assets
 ```
 
 ---
 
-## Configurazione
+## Configuration
 
-### Variabili d'Ambiente
+### Environment Variables
 
-| Variabile | Default | Descrizione |
+| Variable | Default | Description |
 |---|---|---|
-| `OPENAI_API_KEY` | - | Chiave API richiesta per OpenAI |
-| `OPENAI_MODEL` | `gpt-4o-mini` | Modello da utilizzare |
-| `OPENAI_VECTOR_STORE_ID` | - | ID per abilitare la ricerca nei file (RAG) |
-| `OLLAMA_BASE_URL` | - | Base URL per Ollama (es. http://localhost:11434) |
-| `NEXT_PUBLIC_SYSTEM_PROMPT` | - | Istruzioni iniziali dell'assistente |
-| `MAX_HISTORY_MESSAGES` | `10` | Numero di messaggi precedenti da inviare |
-| `LLM_TEMPERATURE` | `0.6` | Creatività del modello (0.0 - 1.0) |
-| `RESPONSE_MAX_TOKENS` | `400` | Lunghezza massima della risposta |
-| `RATE_LIMIT_PER_MINUTE` | `60` | Limite richieste per IP al minuto |
+| `OPENAI_API_KEY` | - | Required API key for OpenAI |
+| `OPENAI_MODEL` | `gpt-4o-mini` | Model to use |
+| `OPENAI_VECTOR_STORE_ID` | - | ID to enable file search (RAG) |
+| `OLLAMA_BASE_URL` | - | Base URL for Ollama (e.g. http://localhost:11434) |
+| `NEXT_PUBLIC_SYSTEM_PROMPT` | - | Assistant's initial instructions |
+| `MAX_HISTORY_MESSAGES` | `10` | Number of previous messages to send |
+| `LLM_TEMPERATURE` | `0.6` | Model creativity (0.0 - 1.0) |
+| `RESPONSE_MAX_TOKENS` | `400` | Maximum response length |
+| `RATE_LIMIT_PER_MINUTE` | `60` | Requests limit per IP per minute |
 
 ---
 
-## Uso nel Tuo Codice
+## Usage in Your Code
 
 ### Next.js Page
 
@@ -182,9 +182,9 @@ import ChatbotAssistant from '@/components/ChatbotAssistant';
 export default function GamePage() {
   return (
     <main>
-      {/* Tuo gioco/app qui */}
+      {/* Your game/app here */}
       
-      {/* Widget chat */}
+      {/* Chat widget */}
       <ChatbotAssistant />
     </main>
   );
@@ -193,7 +193,7 @@ export default function GamePage() {
 
 ---
 
-## Sviluppo e Testing
+## Development and Testing
 
 ### Lint
 
@@ -240,30 +240,30 @@ docker run -p 3000:3000 \
   rag-assistant
 ```
 
-### Variabili Sensibili
+### Sensitive Variables
 
-**Usa secrets**:
+**Use secrets**:
 - GitHub Actions: Settings → Secrets
 - Vercel: Dashboard → Environment Variables
-- Docker/K8s: `.env` file (mai in git)
+- Docker/K8s: `.env` file (never in git)
 
 ---
 
-## Configurazione Avanzata
+## Advanced Configuration
 
 ### Rate Limiting
 
 ```env
 RATE_LIMIT_PER_MINUTE=60          # Per IP
-RATE_LIMIT_MESSAGE_LENGTH=2000    # Caratteri
+RATE_LIMIT_MESSAGE_LENGTH=2000    # Characters
 ```
 
 ### Memory & Performance
 
 ```env
-MAX_HISTORY_MESSAGES=10           # Chat history da mantenere
-LLM_TIMEOUT_MS=120000             # Timeout streaming
-RESPONSE_MAX_TOKENS=400           # Max token risposta
+MAX_HISTORY_MESSAGES=10           # Chat history to maintain
+LLM_TIMEOUT_MS=120000             # Streaming timeout
+RESPONSE_MAX_TOKENS=400           # Max response tokens
 ```
 
 ### Logging
@@ -275,9 +275,9 @@ LOG_LEVEL=info                    # debug, info, warn, error
 
 ---
 
-## Contribuire
+## Contributing
 
-Forks e pull requests sono benvenuti! Per cambiamenti importanti, apri un issue prima.
+Forks and pull requests are welcome! For major changes, please open an issue first.
 
 ---
 
