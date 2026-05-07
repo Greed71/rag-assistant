@@ -283,4 +283,4 @@ Forks e pull requests sono benvenuti! Per cambiamenti importanti, apri un issue 
 
 ## License
 
-MIT © 2026 Grimlight Software
+MIT
